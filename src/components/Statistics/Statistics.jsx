@@ -33,6 +33,17 @@ class Statistics extends Component {
     return total;
   };
 
+  countPositiveFeedbackPercentage = () => {
+    let persentageOfGood = Math.round(
+      (this.state.good / this.countTotalFeedback()) * 100
+    );
+    if (!persentageOfGood) {
+      return '0';
+    } else {
+      return persentageOfGood;
+    }
+  };
+
   render() {
     return (
       <>
@@ -50,7 +61,8 @@ class Statistics extends Component {
         <p>Good: {this.state.good}</p>
         <p>Neutral: {this.state.neutral}</p>
         <p>Bad: {this.state.bad}</p>
-        <p>Total:{this.countTotalFeedback()}</p>
+        <p>Total: {this.countTotalFeedback()}</p>
+        <p>Positive feedback: {this.countPositiveFeedbackPercentage()} %</p>
       </>
     );
   }
