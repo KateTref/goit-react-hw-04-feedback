@@ -1,71 +1,25 @@
-import React, { Component } from 'react';
-import css from './Statistics.module.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import css from './Statistics.module.css';
 
-class Statistics extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
+  return (
+    <>
+      <h1>Statistics</h1>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total()}</p>
+      <p>Positive feedback: {positivePercentage()} %</p>
+    </>
+  );
+};
 
-  handleIncrementGood = () => {
-    this.setState(previousState => ({
-      good: previousState.good + 1,
-    }));
-  };
-
-  handleIncrementNeutral = () => {
-    this.setState(previousState => ({
-      neutral: previousState.neutral + 1,
-    }));
-  };
-
-  handleIncrementBad = () => {
-    this.setState(previousState => ({
-      bad: previousState.bad + 1,
-    }));
-  };
-
-  countTotalFeedback = () => {
-    const valuesOfFeedback = Object.values(this.state);
-    let total = 0;
-    valuesOfFeedback.map(elem => (total += elem));
-    return total;
-  };
-
-  countPositiveFeedbackPercentage = () => {
-    let persentageOfGood = Math.round(
-      (this.state.good / this.countTotalFeedback()) * 100
-    );
-    if (!persentageOfGood) {
-      return '0';
-    } else {
-      return persentageOfGood;
-    }
-  };
-
-  render() {
-    return (
-      <>
-        <p className={css.text}>Please leave feedback</p>
-        <button type="button" onClick={this.handleIncrementGood}>
-          Good
-        </button>
-        <button type="button" onClick={this.handleIncrementNeutral}>
-          Neutral
-        </button>
-        <button type="button" onClick={this.handleIncrementBad}>
-          Bad
-        </button>
-        <h1>Statistics</h1>
-        <p>Good: {this.state.good}</p>
-        <p>Neutral: {this.state.neutral}</p>
-        <p>Bad: {this.state.bad}</p>
-        <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {this.countPositiveFeedbackPercentage()} %</p>
-      </>
-    );
-  }
-}
-
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.func.isRequired,
+  positivePercentage: PropTypes.func.isRequired,
+};
 export default Statistics;
