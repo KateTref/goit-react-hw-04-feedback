@@ -10,22 +10,9 @@ class App extends Component {
     neutral: 0,
     bad: 0,
   };
-
-  handleIncrementGood = () => {
+  onLeaveFeedback = option => {
     this.setState(previousState => ({
-      good: previousState.good + 1,
-    }));
-  };
-
-  handleIncrementNeutral = () => {
-    this.setState(previousState => ({
-      neutral: previousState.neutral + 1,
-    }));
-  };
-
-  handleIncrementBad = () => {
-    this.setState(previousState => ({
-      bad: previousState.bad + 1,
+      [option]: previousState[option] + 1,
     }));
   };
 
@@ -51,9 +38,8 @@ class App extends Component {
     return (
       <Section title="Please leave feedback">
         <FeedbackOptions
-          goodFeedback={this.handleIncrementGood}
-          neutralFeedback={this.handleIncrementNeutral}
-          badFeedback={this.handleIncrementBad}
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={this.onLeaveFeedback}
         />
         {this.countTotalFeedback() ? (
           <Statistics
