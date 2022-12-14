@@ -11,16 +11,20 @@ export default function App() {
   const [total, setTotal] = useState(0);
   const [persentage, setPersentage] = useState(0);
 
-  const handleChangeGood = () => {
-    setGood(prevState => prevState + 1);
-  };
-
-  const handleChangeNeutral = () => {
-    setNeutral(prevState => prevState + 1);
-  };
-
-  const handleChangeBad = () => {
-    setBad(prevState => prevState + 1);
+  const onLeaveFeedback = option => {
+    switch (option) {
+      case 'good':
+        setGood(prevState => prevState + 1);
+        break;
+      case 'neutral':
+        setNeutral(prevState => prevState + 1);
+        break;
+      case 'bad':
+        setBad(prevState => prevState + 1);
+        break;
+      default:
+        return;
+    }
   };
 
   useEffect(() => {
@@ -35,9 +39,8 @@ export default function App() {
     <div className="container">
       <Section title="Please leave feedback">
         <FeedbackOptions
-          onLeaveGoodFeedback={handleChangeGood}
-          onLeaveNeutralFeedback={handleChangeNeutral}
-          onLeaveBadFeedback={handleChangeBad}
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={onLeaveFeedback}
         />
         {total !== 0 ? (
           <Statistics
